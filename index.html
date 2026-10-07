@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💕 لرحمة 💕</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, sans-serif; -webkit-tap-highlight-color:transparent; }
+  
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff6a88, #c471ed, #b24592, #ff6a88);
+    background-size: 400% 400%;
+    animation: bgShift 15s ease infinite;
+    display: flex; justify-content: center; align-items: center;
+    padding: 20px; overflow-x: hidden; position: relative;
+  }
+  @keyframes bgShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  #introScreen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: linear-gradient(135deg, #1a0a2e, #3d1b5c, #7b2d8e);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center; padding: 30px;
+    animation: bgShift 8s ease infinite;
+    background-size: 300% 300%;
+  }
+  #introScreen .heartBeat {
+    font-size: 120px;
+    animation: bigBeat 1s ease infinite;
+    filter: drop-shadow(0 0 30px #ff69b4);
+  }
+  @keyframes bigBeat {
+    0%,100% { transform: scale(1); }
+    25% { transform: scale(1.25); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.15); }
+  }
+  #introScreen h1 {
+    color: #fff; font-size: 32px; margin-top: 20px;
+    text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff69b4;
+    animation: glow 2s ease infinite;
+  }
+  @keyframes glow {
+    0%,100% { text-shadow: 0 0 20px #ff69b4, 0 0 40px #ff69b4; }
+    50% { text-shadow: 0 0 30px #c471ed, 0 0 60px #c471ed, 0 0 80px #ff69b4; }
+  }
+  #introScreen p { color: #e0b3ff; margin-top: 15px; font-size: 16px; }
+  #introScreen button {
+    margin-top: 35px; padding: 18px 50px;
+    background: linear-gradient(135deg, #ff6a88, #c471ed);
+    border: none; border-radius: 50px; color: white;
+    font-size: 20px; font-weight: bold; cursor: pointer;
+    box-shadow: 0 0 40px rgba(196,113,237,.7);
+    animation: pulseBtn 1.5s ease infinite;
+    font-family: inherit;
+  }
+  @keyframes pulseBtn {
+    0%,100% { transform: scale(1); box-shadow: 0 0 40px rgba(196,113,237,.7); }
+    50% { transform: scale(1.06); box-shadow: 0 0 70px rgba(255,106,136,.9); }
+  }
+
+  .hearts-bg { position: fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+  .heart-bg { position:absolute; animation: floatUp linear infinite; opacity:.85; }
+  @keyframes floatUp {
+    0% { transform: translateY(105vh) rotate(0); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+  }
+
+  .corner-img {
+    position: fixed; width: 90px; height: 90px;
+    object-fit: contain; z-index: 3;
+    filter: drop-shadow(0 6px 15px rgba(0,0,0,.3));
+    animation: cornerBob 3s ease-in-out infinite;
+  }
+  .corner-img.tl { top: 15px; left: 15px; animation-delay: 0s; }
+  .corner-img.tr { top: 15px; right: 15px; animation-delay: .8s; }
+  .corner-img.bl { bottom: 15px; left: 15px; animation-delay: 1.6s; }
+  .corner-img.br { bottom: 15px; right: 15px; animation-delay: 2.4s; }
+  @keyframes cornerBob {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  .love-popup {
+    position: fixed; z-index: 9998;
+    background: linear-gradient(135deg, #ff6a88, #c471ed);
+    color: white; padding: 14px 28px;
+    border-radius: 50px; font-size: 20px; font-weight: bold;
+    box-shadow: 0 10px 40px rgba(255,106,136,.7);
+    pointer-events: none;
+    animation: popInOut 3s ease forwards;
+    font-family: inherit;
+    white-space: nowrap;
+  }
+  @keyframes popInOut {
+    0% { transform: scale(0) rotate(-20deg); opacity: 0; }
+    20% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+    30% { transform: scale(1) rotate(0); opacity: 1; }
+    80% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0.5) translateY(-50px); opacity: 0; }
+  }
+
+  .container {
+    background: rgba(255,255,255,.97);
+    border-radius: 30px; padding: 30px 25px;
+    max-width: 580px; width: 100%;
+    box-shadow: 0 25px 80px rgba(196,113,237,.5),
+                0 0 0 3px rgba(255,255,255,.4) inset,
+                0 0 60px rgba(255,106,136,.4);
+    position: relative; z-index: 5;
+    animation: fadeIn .8s ease;
+    margin: 110px 0;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  h1 { text-align: center; color: #b24592; margin-bottom: 8px; font-size: 26px; }
+  h1.pulse { animation: pulse 1.6s ease infinite; text-shadow: 0 2px 10px rgba(178,69,146,.3); }
+  @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.06);} }
+
+  .subtitle { text-align: center; color: #888; margin-bottom: 20px; font-size: 14px; line-height:1.7; }
+
+  .progress-wrap { margin-bottom: 20px; }
+  .progress-top { display:flex; justify-content:space-between; margin-bottom:6px; font-size:12px; color:#b24592; font-weight:bold; }
+  .progress-bar { height:10px; background:#f5d6f0; border-radius:50px; overflow:hidden; }
+  .progress-fill {
+    height:100%; width:0%; border-radius:50px;
+    background: linear-gradient(90deg,#ff6a88,#c471ed,#b24592,#c471ed,#ff6a88);
+    background-size:200% 100%;
+    animation: shine 3s linear infinite;
+    transition: width .5s ease;
+  }
+  @keyframes shine { 0%{background-position:0 0;} 100%{background-position:200% 0;} }
+
+  .question-box { margin-bottom: 18px; }
+  .question-box label {
+    display:block; color:#b24592; font-weight:bold;
+    margin-bottom:12px; font-size:17px; line-height:1.7;
+  }
+
+  .option {
+    display:flex; align-items:center; gap:10px;
+    width:100%; padding:13px 16px; margin-bottom:9px;
+    background:#fff; border:2px solid #f0c8e8;
+    border-radius:14px; cursor:pointer;
+    font-size:15px; color:#555; text-align:right;
+    transition:.25s; font-family:inherit;
+  }
+  .option .icon { font-size:20px; }
+  .option:hover { border-color:#c471ed; background:#fdf5ff; transform: translateX(-5px); }
+  .option.correct { background: linear-gradient(135deg,#c8f7c5,#a8e6a3) !important; border-color:#4caf50 !important; color:#2e7d32 !important; animation: pop .5s ease; }
+  .option.wrong { background: linear-gradient(135deg,#ffcdd2,#ffb3ba) !important; border-color:#f44336 !important; color:#c62828 !important; animation: shake .5s ease; }
+  @keyframes pop { 0%{transform:scale(1);} 50%{transform:scale(1.05);} 100%{transform:scale(1);} }
+  @keyframes shake { 0%,100%{transform:translateX(0);} 20%,60%{transform:translateX(-8px);} 40%,80%{transform:translateX(8px);} }
+
+  .btn {
+    width:100%; padding:16px;
+    background: linear-gradient(135deg,#ff6a88,#c471ed);
+    color:white; border:none; border-radius:14px;
+    font-size:17px; font-weight:bold; cursor:pointer;
+    transition:.3s; margin-top:10px; font-family:inherit;
+    box-shadow: 0 8px 25px rgba(196,113,237,.5);
+  }
+  .btn:hover:not(:disabled){ transform:translateY(-3px); box-shadow:0 15px 35px rgba(255,106,136,.6); }
+  .btn:disabled { opacity:.5; cursor:not-allowed; }
+
+  .name-input {
+    width:100%; padding:15px 18px;
+    border:2px solid #f0c8e8; border-radius:14px;
+    font-size:16px; outline:none; transition:.3s;
+    font-family:inherit; background:#fff;
+  }
+  .name-input:focus { border-color:#c471ed; box-shadow:0 0 0 5px rgba(196,113,237,.15); }
+
+  .result-screen { display:none; text-align:center; animation:fadeIn .8s ease; }
+  .result-emoji { font-size:80px; margin-bottom:10px; display:inline-block; }
+  .result-emoji.anim { animation:bounceBig 1.2s infinite; }
+  @keyframes bounceBig { 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-18px) scale(1.1);} }
+
+  .result-title { font-size:26px; color:#b24592; margin:10px 0 12px; font-weight:bold; }
+
+  .neon-name {
+    font-size: 32px; font-weight: 900; color: #fff;
+    text-shadow: 0 0 10px #fff, 0 0 20px #ff6a88, 0 0 30px #ff6a88,
+                 0 0 40px #c471ed, 0 0 70px #c471ed;
+    animation: neonFlicker 2s infinite alternate;
+    margin: 10px 0;
+    letter-spacing: 2px;
+    background: linear-gradient(135deg, #1a0a2e, #7b2d8e);
+    padding: 12px; border-radius: 15px;
+  }
+  @keyframes neonFlicker {
+    0%,100% { opacity:1; }
+    50% { opacity:.9; text-shadow: 0 0 15px #fff, 0 0 30px #ff6a88, 0 0 50px #c471ed; }
+  }
+
+  .stars-row { font-size:26px; letter-spacing:4px; margin:8px 0 12px; }
+
+  .score-badge {
+    display:inline-block;
+    background: linear-gradient(135deg,#ff6a88,#c471ed);
+    color:white; padding:10px 25px;
+    border-radius:50px; margin:8px 0 15px;
+    font-weight:bold; font-size:16px;
+    box-shadow: 0 8px 25px rgba(196,113,237,.5);
+  }
+
+  .result-msg-box {
+    background: linear-gradient(135deg,#fdf5ff,#ffe4f5);
+    border-radius:20px; border:2px dashed #e0b3ff;
+    padding:22px 18px; text-align:right;
+    font-size:16px; line-height:2; color:#555;
+    margin-top:10px;
+  }
+  .result-msg-box b { color:#b24592; }
+
+  .loading { text-align:center; padding:30px; color:#b24592; font-size:17px; }
+  .loading .beat { font-size:55px; display:inline-block; animation:pulse .8s infinite; }
+
+  .confetti {
+    position:fixed; width:12px; height:12px; top:-20px;
+    z-index:999; pointer-events:none;
+    animation: confettiFall linear forwards;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0); opacity:1; }
+    100% { transform: translateY(105vh) rotate(720deg); opacity:0; }
+  }
+
+  .hidden { display:none !important; }
+
+  @media (max-width:500px) {
+    .container { padding:22px 16px; border-radius:22px; margin: 100px 0; }
+    h1 { font-size:20px; }
+    .result-title { font-size:20px; }
+    .result-msg-box { font-size:14.5px; padding:15px; }
+    .neon-name { font-size:24px; }
+    .option { font-size:14px; padding:12px 14px; }
+    .corner-img { width:65px; height:65px; }
+    .love-popup { font-size:15px; padding:10px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="introScreen">
+  <div class="heartBeat">💖</div>
+  <h1>اضغطي عشان تبدأي ✨</h1>
+  <p>في حاجة مستنياكي من عبدو 💌</p>
+  <button onclick="enterSite()">دخول 💕</button>
+</div>
+
+<div class="hearts-bg" id="heartsBg"></div>
+
+<img class="corner-img tl" id="c1" src="https://cdn-icons-png.flaticon.com/512/616/616430.png" alt="">
+<img class="corner-img tr" id="c2" src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="">
+<img class="corner-img bl" id="c3" src="https://cdn-icons-png.flaticon.com/512/833/833524.png" alt="">
+<img class="corner-img br" id="c4" src="https://cdn-icons-png.flaticon.com/512/833/833520.png" alt="">
+
+<div class="container">
+
+  <div id="startScreen">
+    <h1 class="pulse">💕 أهلاً يا رحمة 💕</h1>
+    <p class="subtitle">جاوبي على الأسئلة دي بصراحة.. واعرفي رأي عبدو فيكي 😉</p>
+    <div class="question-box">
+      <label>اكتبي اسمك الأول 💌</label>
+      <input type="text" class="name-input" id="nameInput" placeholder="اسمك الجميل..." value="رحمة">
+    </div>
+    <button class="btn" onclick="startQuiz()">يلا نبدأ ❤️</button>
+  </div>
+
+  <div id="quizScreen" class="hidden">
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span id="progressText">السؤال 1 من 11</span>
+        <span id="percentText">0%</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div id="questionContainer"></div>
+    <button class="btn hidden" id="nextBtn" onclick="nextQuestion()">التالي ➡️</button>
+  </div>
+
+  <div id="loadingScreen" class="hidden">
+    <div class="loading">
+      <div class="beat">💌</div>
+      <p style="margin-top:15px;">جاري إرسال إجاباتك لعبدو...</p>
+    </div>
+  </div>
+
+  <div id="resultScreen" class="result-screen">
+    <div class="result-emoji anim" id="resultEmoji">💖</div>
+    <div class="neon-name" id="neonName"></div>
+    <div class="result-title" id="resultTitle"></div>
+    <div class="stars-row" id="starsRow"></div>
+    <div class="score-badge" id="scoreBadge"></div>
+    <div class="result-msg-box" id="resultMessage"></div>
+  </div>
+
+</div>
+
+<script>
+const FORMSPREE_URL = "https://formspree.io/f/xbgdgjvn";
+const HER_NAME = "رحمة";
+
+const CORNER_IMGS = [
+  "https://cdn-icons-png.flaticon.com/512/616/616430.png",
+  "https://cdn-icons-png.flaticon.com/512/833/833472.png",
+  "https://cdn-icons-png.flaticon.com/512/833/833524.png",
+  "https://cdn-icons-png.flaticon.com/512/833/833520.png",
+  "https://cdn-icons-png.flaticon.com/512/833/833478.png",
+  "https://cdn-icons-png.flaticon.com/512/833/833464.png",
+  "https://cdn-icons-png.flaticon.com/512/3468/3468059.png",
+  "https://cdn-icons-png.flaticon.com/512/833/833482.png"
+];
+
+const LOVE_PHRASES = [
+  "بحبك يا رحمة 💕",
+  "إنتي حياتي يا رحمة ❤️",
+  "بحبك موت 💘",
+  "إنتي أحلى حاجة حصلتلي ✨",
+  "رحمة بحبك 🌹",
+  "قلبي ليكي 💗",
+  "إنتي روحي 🥰",
+  "بحبك أكتر من أي حاجة 💖"
+];
+
+const questions = [
+  { q: "عيد ميلاد عبدو إمتى؟ 🎂",
+    options: ["27/12/2011", "27/11/2010", "15/3/2010", "5/6/2009"], correct: 1 },
+  { q: "أكتر شخص بيعشقه عبدو في الدنيا؟ 💘",
+    options: ["ماما", "بابا", "رحمة", "صحبه المقرب"], correct: 2 },
+  { q: "أكتر مكان بيحب عبدو يقعد فيه وهو متضايق؟ 🏙️",
+    options: ["النادي", "البحر", "البلكونة", "الطريق السريع"], correct: 2 },
+  { q: "أكتر أكلة بيعشقها عبدو؟ 🍝",
+    options: ["المكرونة البشاميل", "الملوخية", "المحشي", "الرز"], correct: 0 },
+  { q: "أكتر حاجة بتزعل عبدو؟ 💔",
+    options: ["يتخانق معاه", "شخص بيحبه يتغير معاه ويفقد ثقته فيه", "يتأخر عليه", "ميردش على رسايله"], correct: 1 },
+  { q: "هل عبدو ذكي؟ 🤓",
+    options: ["أه ذكي جداً", "بحبه", "غبي جداً", "أذكى من باتريك جين"], correct: 1 },
+  { q: "لو عبدو قعد طول عمره غبي وفقير، رحمة هتكملي معاه؟ 🥺",
+    options: ["أكيد طبعاً من غير ثانية تفكير", "لا طبعاً هنساه وأشوف حياتي", "هحاول أفلت منه بس من غير ما يزعل", "هفضل في هرو وأسندو لحد ما نعدي المرحلة دي مع بعض ونبقى في أحسن حال"], correct: 3 },
+  { q: "أكتر حيوان بيعشقه عبدو؟ 🐱",
+    options: ["الكلب", "القطة", "العصافير", "الأسد"], correct: 1 },
+  { q: "احنا إيه؟ 💑",
+    options: ["مرتبطين", "عشاق", "خاينين", "بنعشق بعض لدرجة إننا نموت على بعض"], correct: 3 },
+  { q: "عبدو بيحب يقعد مع رحمة فين؟ 🏖️",
+    options: ["الكافيه", "البحر", "البلكونة", "البيت"], correct: 2 },
+  { q: "إيه أمنية عبدو؟ 💭",
+    options: [
+      "إنه يكون عنده عربيات وشركات",
+      "إنه هو و" + HER_NAME + " يكونوا مع بعض، وربنا يجمعهم ويتجوزوا ويبقوا في بيت واحد ويجيبوا عيال ويعيشوا في سبات ونبات",
+      "إنه يكون أكبر هاكر في العالم",
+      "إنه يبقى جامد فشخ ومفيش من دينه اتنين"
+    ], correct: 1 }
+];
+
+const OPTION_ICONS = ["🌸","💫","✨","💖"];
+
+let currentName = "رحمة";
+let currentQ = 0;
+let score = 0;
+let userAnswers = [];
+let selectedAnswer = null;
+
+function enterSite() {
+  playWelcome();
+  document.getElementById("introScreen").style.opacity = "0";
+  document.getElementById("introScreen").style.transition = "opacity .5s";
+  setTimeout(() => {
+    document.getElementById("introScreen").remove();
+    startLovePopups();
+  }, 500);
+}
+
+function startLovePopups() {
+  setInterval(() => {
+    const p = document.createElement("div");
+    p.className = "love-popup";
+    p.textContent = LOVE_PHRASES[Math.floor(Math.random()*LOVE_PHRASES.length)];
+    p.style.left = (10 + Math.random()*60) + "%";
+    p.style.top = (15 + Math.random()*70) + "%";
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 3000);
+  }, 3500);
+}
+
+function makeHearts() {
+  const bg = document.getElementById("heartsBg");
+  const emojis = ["💖","💕","💗","❤️","💘","🌸","💝","✨","🐱","🌹"];
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart-bg";
+    h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    h.style.left = Math.random()*100 + "%";
+    h.style.animationDuration = (8 + Math.random()*6) + "s";
+    h.style.fontSize = (16 + Math.random()*24) + "px";
+    bg.appendChild(h);
+    setTimeout(() => h.remove(), 15000);
+  }, 400);
+}
+makeHearts();
+
+function rotateCornerImgs() {
+  let idx = 0;
+  setInterval(() => {
+    idx = (idx + 1) % CORNER_IMGS.length;
+    document.getElementById("c1").src = CORNER_IMGS[idx];
+    document.getElementById("c2").src = CORNER_IMGS[(idx+2)%CORNER_IMGS.length];
+    document.getElementById("c3").src = CORNER_IMGS[(idx+4)%CORNER_IMGS.length];
+    document.getElementById("c4").src = CORNER_IMGS[(idx+6)%CORNER_IMGS.length];
+  }, 4000);
+}
+rotateCornerImgs();
+
+let audioCtx = null;
+function beep(freq, dur, type="sine", vol=0.08){
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type; o.frequency.value = freq;
+    o.connect(g); g.connect(audioCtx.destination);
+    g.gain.setValueAtTime(vol, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+    o.start(); o.stop(audioCtx.currentTime + dur);
+  } catch(e){}
+}
+function playWelcome() {
+  [523, 659, 784, 1046].forEach((f,i) => setTimeout(() => beep(f, 0.15, "sine", 0.08), i*120));
+}
+function playCorrect() {
+  [660, 880, 1100].forEach((f,i) => setTimeout(() => beep(f, 0.12, "sine", 0.09), i*80));
+}
+function playWrong() { beep(180, 0.3, "sawtooth", 0.08); }
+
+function startQuiz() {
+  const name = document.getElementById("nameInput").value.trim();
+  if (!name) { alert("اكتبي اسمك الأول يا رحمة 🌸"); return; }
+  currentName = name;
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("quizScreen").classList.remove("hidden");
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[currentQ];
+  const total = questions.length;
+
+  document.getElementById("progressText").textContent = `السؤال ${currentQ+1} من ${total}`;
+  const percent = Math.round(((currentQ)/total)*100);
+  document.getElementById("percentText").textContent = percent + "%";
+  document.getElementById("progressFill").style.width = percent + "%";
+
+  const container = document.getElementById("questionContainer");
+  container.innerHTML = `
+    <div class="question-box">
+      <label>${q.q}</label>
+      <div id="optionsWrap"></div>
+    </div>
+  `;
+  const wrap = document.getElementById("optionsWrap");
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.innerHTML = `<span class="icon">${OPTION_ICONS[i%4]}</span><span>${opt}</span>`;
+    btn.onclick = () => selectOption(i);
+    wrap.appendChild(btn);
+  });
+
+  selectedAnswer = null;
+  const nextBtn = document.getElementById("nextBtn");
+  nextBtn.classList.add("hidden");
+  nextBtn.textContent = currentQ === total-1 ? "شوفي النتيجة 💖" : "التالي ➡️";
+}
+
+function selectOption(i) {
+  if (selectedAnswer !== null) return;
+  selectedAnswer = i;
+  const q = questions[currentQ];
+  const allOpts = document.querySelectorAll(".option");
+
+  allOpts.forEach((b, idx) => {
+    if (idx === q.correct) b.classList.add("correct");
+    else if (idx === i) b.classList.add("wrong");
+  });
+
+  if (i === q.correct) {
+    score++;
+    playCorrect();
+    burstConfetti(25);
+    showLoveBurst();
+  } else {
+    playWrong();
+    shakeScreen();
+  }
+
+  userAnswers.push({
+    question: q.q,
+    answer: q.options[i],
+    correct: i === q.correct,
+    correctAnswer: q.options[q.correct]
+  });
+
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+
+function showLoveBurst() {
+  const p = document.createElement("div");
+  p.className = "love-popup";
+  p.textContent = LOVE_PHRASES[Math.floor(Math.random()*LOVE_PHRASES.length)];
+  p.style.left = "50%"; p.style.top = "40%";
+  p.style.transform = "translate(-50%, -50%)";
+  p.style.fontSize = "26px";
+  p.style.padding = "20px 40px";
+  document.body.appendChild(p);
+  setTimeout(() => p.remove(), 3000);
+}
+
+function shakeScreen() {
+  document.querySelector(".container").animate([
+    { transform: "translateX(0)" },
+    { transform: "translateX(-15px)" },
+    { transform: "translateX(15px)" },
+    { transform: "translateX(-10px)" },
+    { transform: "translateX(10px)" },
+    { transform: "translateX(0)" }
+  ], { duration: 500 });
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ < questions.length) {
+    document.getElementById("progressFill").style.width = ((currentQ)/questions.length*100) + "%";
+    renderQuestion();
+  } else {
+    submitQuiz();
+  }
+}
+
+function submitQuiz() {
+  document.getElementById("quizScreen").classList.add("hidden");
+  document.getElementById("loadingScreen").classList.remove("hidden");
+
+  const percent = (score / questions.length) * 100;
+  const resultStatus = percent >= 70 ? "❤️ جاوبت حلو (رسالة حب)" : "💔 كسرت قلبه (رسالة زعل)";
+
+  let answersText = "";
+  userAnswers.forEach(a => {
+    answersText += `${a.correct ? "✅" : "❌"} ${a.question}\n   إجابتها: ${a.answer}\n   الصح: ${a.correctAnswer}\n\n`;
+  });
+
+  const formData = {
+    "الاسم": currentName,
+    "النتيجة": `${score} من ${questions.length}`,
+    "التقييم": resultStatus,
+    "التاريخ": new Date().toLocaleString("ar-EG"),
+    "تفاصيل_الإجابات": answersText
+  };
+
+  fetch(FORMSPREE_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Accept": "application/json" },
+    body: JSON.stringify(formData)
+  }).then(()=>showResult()).catch(()=>showResult());
+}
+
+function showResult() {
+  document.getElementById("loadingScreen").classList.add("hidden");
+  document.getElementById("resultScreen").style.display = "block";
+
+  const percent = (score / questions.length) * 100;
+  const stars = Math.round((score/questions.length)*5);
+  document.getElementById("starsRow").innerHTML = "⭐".repeat(stars) + "☆".repeat(5-stars);
+  document.getElementById("scoreBadge").textContent = `نتيجتك: ${score} من ${questions.length} 💯`;
+  document.getElementById("neonName").textContent = currentName;
+
+  if (percent >= 70) {
+    document.getElementById("resultEmoji").textContent = "💖🥰💖";
+    document.getElementById("resultTitle").textContent = "إنتي أحلى حاجة حصلتلي! ❤️";
+    document.getElementById("resultMessage").innerHTML = `
+      يا <b>${currentName}</b> يا حبيبة قلبي.. 💕<br><br>
+      إنتي مش بس حبيبتي.. إنتي حياتي كلها. أنا بعشقك وبموت فيكي، وبحمد ربنا كل دقيقة إنه جابك في طريقي.<br><br>
+      إنتي اللي بتفهميني من غير ما أتكلم، واللي بتعرفي كل حاجة عني حتى اللي مش بقولها. ولو الدنيا كلها ضدي، وجودك معايا بيكفيني.<br><br>
+      بحلف بالله إني بحبك أكتر من أي حاجة، وأتمنى نفضل مع بعض للأبد، ونعيش ونتجوز ونكبر مع بعض يا أحلى حاجة حصلتلي 🌹<br><br>
+      <b>دايماً ليكي وحدك يا ${currentName} ❤️</b>
+    `;
+    burstConfetti(120);
+    for (let i=0;i<8;i++) setTimeout(showLoveBurst, i*300);
+  } else {
+    document.getElementById("resultEmoji").textContent = "💔😢";
+    document.getElementById("resultTitle").textContent = "كسرتي قلبي يا بت! 💔";
+    document.getElementById("resultMessage").innerHTML = `
+      يا <b>${currentName}</b>..<br><br>
+      إزاي مش عارفة الحاجات دي عني؟ 😔<br><br>
+      أنا اللي بحكيلك كل حاجة، وبتعرفي أدق تفاصيل عني، واليوم ده حسيت إنك بعيدة عني شوية.<br><br>
+      بس عادي.. مهما كسرتي قلبي، هفضل بحبك ومستني منك ترجعي تعرفيني من تاني 🥺<br><br>
+      <b>بحبك حتى وانت زعلاني 💔❤️</b>
+    `;
+    burstConfetti(20);
+  }
+}
+
+function burstConfetti(count) {
+  const colors = ["#ff6a88","#c471ed","#b24592","#ffc3d0","#ffd700","#e0b3ff","#ffb3d1"];
+  const emojis = ["💖","💕","✨","💗","🌸","🎉","💘","🌹"];
+  for (let i=0;i<count;i++){
+    const c = document.createElement("div");
+    c.className = "confetti";
+    if (Math.random() > 0.5) {
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.borderRadius = "50%";
+    } else {
+      c.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      c.style.background = "transparent";
+      c.style.fontSize = "22px";
+      c.style.width = "auto"; c.style.height = "auto";
+    }
+    c.style.left = Math.random()*100 + "%";
+    c.style.animationDuration = (2 + Math.random()*2) + "s";
+    c.style.animationDelay = Math.random()*0.5 + "s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(), 5000);
+  }
+}
+</script>
+</body>
+</html>
